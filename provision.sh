@@ -35,3 +35,27 @@ sudo chown -R buildbot:buildbot slave
 sudo cp /vagrant/daemons/buildslave /etc/default
 
 sudo /etc/init.d/buildslave start
+
+echo "Installing Builder Dependencies"
+
+echo ">>> Node.js"
+mkdir -p /opt/joyent/node
+cd /opt/joyent/node
+wget http://nodejs.org/dist/v0.10.30/node-v0.10.30-linux-x64.tar.gz \
+  --output-document nodejs.tar.gz >/dev/null 2>&1
+tar --strip-components=1 -xf nodejs.tar.gz
+rm nodejs.tar.gz
+ln -s /opt/joyent/node/bin/node /usr/local/bin
+ln -s /opt/joyent/node/bin/npm /usr/local/bin
+chown -R buildbot .
+
+echo ">>> xvfb"
+sudo apt-get install -y xvfb >/dev/null 2>&1
+
+echo ">>> Google Chrome"
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb  >/dev/null 2>&1
+if ! sudo dpkg -i google-chrome-stable_current_amd64.deb >/dev/null 2>&1; then
+  sudo apt-get install -f -y >/dev/null 2>&1
+  sudo dpkg -i google-chrome-stable_current_amd64.deb >/dev/null 2>&1
+fi
+sudo rm google-chrome-stable_current_amd64.deb
