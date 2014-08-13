@@ -17,6 +17,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # `vagrant box outdated`. This is not recommended.
   # config.vm.box_check_update = false
 
+  # Explicitly configure shared folder Vagrant normally provides by default in
+  # order to modify its permissions--the `buildbot` user should be able to read
+  # the contents.
+  config.vm.synced_folder ".", "/vagrant", :owner=> 'vagrant',
+    :mount_options => ['dmode=775', 'fmode=775']
+
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
