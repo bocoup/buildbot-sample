@@ -1,5 +1,7 @@
 # Buildbot Sample
 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/bocoup-education/buildbot-sample?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A simple Buildbot configuration intended for demonstration purposes only.
 
 ## Getting Started
